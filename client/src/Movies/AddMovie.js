@@ -51,14 +51,18 @@ function AddMovie(props) {
 
   const submitMovie = (e) => {
     e.preventDefault();
+    const data = newMovie;
+
     if (props && props.movieList) {
       const id = parseInt(params.id);
-      const data = newMovie;
       data.id = id;
       axios
         .put(`http://localhost:5000/api/movies/${id}`, data)
         .then((res) => console.log(res));
     } else {
+      axios
+        .post(`http://localhost:5000/api/movies`, data)
+        .then((res) => console.log(res));
     }
   };
 
