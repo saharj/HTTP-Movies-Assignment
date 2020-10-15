@@ -11,7 +11,10 @@ function AddMovie(props) {
   const onInputChange = (e) => {
     if (e.target.name === "actors") {
       const actorsList = e.target.value.split(",");
-      //   actorsList
+      setNewMovie({
+        ...newMovie,
+        actors: actorsList,
+      });
     } else {
       setNewMovie({
         ...newMovie,
