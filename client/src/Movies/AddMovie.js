@@ -1,6 +1,6 @@
 import axios from "axios";
 import React, { useEffect, useState } from "react";
-import { useParams } from "react-router-dom";
+import { useParams, useHistory } from "react-router-dom";
 
 function AddMovie(props) {
   const [newMovie, setNewMovie] = useState({
@@ -10,6 +10,7 @@ function AddMovie(props) {
     stars: [],
   });
   const params = useParams();
+  const { push } = useHistory();
 
   useEffect(() => {
     if (props && props.movieList) {
@@ -53,16 +54,14 @@ function AddMovie(props) {
     e.preventDefault();
     const data = newMovie;
 
-    if (props && props.movieList) {
+    if (props && props.updateMovie && params.id) {
       const id = parseInt(params.id);
       data.id = id;
-      axios
-        .put(`http://localhost:5000/api/movies/${id}`, data)
-        .then((res) => console.log(res));
+      props.updateMovie(data, id);
+      push(`/`);
     } else {
-      axios
-        .post(`http://localhost:5000/api/movies`, data)
-        .then((res) => console.log(res));
+      props.addNewMovie(data);
+      push(`/`);
     }
   };
 
