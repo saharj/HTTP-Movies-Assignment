@@ -28,6 +28,12 @@ function Movie({ addToSavedList }) {
     });
   };
 
+  const routeToEdit = (event) => {
+    event.preventDefault();
+    const id = params.id;
+    push(`/update-movie/${id}`);
+  };
+
   useEffect(() => {
     fetchMovie(params.id);
   }, [params.id]);
@@ -45,6 +51,9 @@ function Movie({ addToSavedList }) {
       </div>
       <div className="delete-button" onClick={onDelete}>
         Delete
+      </div>
+      <div className="edit-button" onClick={routeToEdit}>
+        Edit
       </div>
     </div>
   );
